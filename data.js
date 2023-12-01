@@ -12,6 +12,15 @@ fs.readFile(path, 'utf-8', (error, data) => {
     });
 });
 
+const getItems = function()
+{
+    const items = Array.from(registry, ([key, value]) => ({ key, value }));
+
+    items.sort((a, b) => a.key.localeCompare(b.key));
+
+    return items;
+}
+
 const save = function()
 {
     const resource = { };
@@ -43,12 +52,15 @@ exports.remove = function(name)
 exports.list = function()
 {
     let message = "";
+    for (const entry of getItems())
+        message += `<strong>${entry.key}</strong>: <code>${entry.value}</code>\n`;
+    return message;
+}
 
-    const items = Array.from(registry, ([key, value]) => ({ key, value }));
-
-    items.sort((a, b) => a.key.localeCompare(b.key));
-
-    for (const entry of items)
+exports.commands = function()
+{
+    let message = "";
+    for (const entry of getItems())
         message += `<strong>${entry.key}</strong>: <code>/slot config set ${entry.key} ${entry.value}</code>\n`;
     return message;
 }

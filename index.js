@@ -5,11 +5,13 @@ const token = '6730508123:AAFhzB6TKQkXdBb6wLKD7mo5fK19UyZa2MA';
 
 const bot = new telegram(token, { polling: true });
 
-const commands = [
+const bot_commands =
+[
     { command: 'list', description: 'List' },
+    { command: 'commands', description: 'Commands' },
 ];
 
-bot.setMyCommands(commands);
+bot.setMyCommands(bot_commands);
 
 const send = function(chat_id, message)
 {
@@ -31,9 +33,19 @@ const remove = function(chat_id, tokens)
     data.remove(name);
 }
 
-const list = function(chat_id, tokens)
+const list = function(chat_id)
 {
     const message = data.list();
+
+    if (message === undefined || message.length === 0)
+        return;
+
+    send(chat_id, message);
+}
+
+const commands = function(chat_id)
+{
+    const message = data.commands();
 
     if (message === undefined || message.length === 0)
         return;
@@ -71,8 +83,10 @@ bot.onText(/\/remove/, (message) => {
 
 bot.onText(/\/list/, (message) => {
     const chat_id = message.chat.id;
+    list(chat_id);
+});
 
-    const tokens = message.text.split(' ');
-
-    list(chat_id, tokens);
+bot.onText(/\/commands/, (message) => {
+    const chat_id = message.chat.id;
+    commands(chat_id);
 });
