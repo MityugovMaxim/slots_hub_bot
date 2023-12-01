@@ -49,6 +49,6 @@ exports.list = function()
     items.sort((a, b) => a.key.localeCompare(b.key));
 
     for (const entry of items)
-        message += `<strong>${entry.key}</strong> : <code>/slot config set ${entry.key} ${entry.value}</code>\n`;
+        message += `<strong>${entry.key}</strong>: <code>/slot config set ${entry.key} ${entry.value}</code>\n`;
     return message;
 }
