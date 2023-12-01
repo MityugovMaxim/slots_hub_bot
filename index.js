@@ -72,8 +72,6 @@ bot.onText(/\/remove/, (message) => {
 bot.onText(/\/list/, (message) => {
     const chat_id = message.chat.id;
 
-    console.log(message);
-
     const tokens = message.text.split(' ');
 
     list(chat_id, tokens);
