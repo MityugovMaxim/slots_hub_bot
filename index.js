@@ -3,6 +3,7 @@ const data = require("./data");
 const tasks = require("./schedule");
 
 const hub_id = -1002044197247;
+const sensei_id = "AgADgQEAAqxEnFE";
 const token = '6730508123:AAFhzB6TKQkXdBb6wLKD7mo5fK19UyZa2MA';
 
 const bot = new telegram(token, { polling: true });
@@ -89,6 +90,8 @@ const schedule = async function (chat_id, tokens)
     const expression = `${minutes} ${hours} ${day} ${month} *`;
 
     tasks.schedule(expression, zone, () => send(hub_id, message));
+
+    await bot.sendAnimation(chat_id, sensei_id);
 }
 
 bot.onText(/\/schedule/, (message) => {
