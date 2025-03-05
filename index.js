@@ -163,3 +163,9 @@ bot.onText(/\/commands/, async (message) =>
     const chat_id = message.chat.id;
     await commands(chat_id);
 });
+
+bot.onText(/\/message/, async (message) =>
+{
+    await send(message.chat.id, message.text);
+    await bot.sendAnimation(message.chat.id, sensei_id);
+});
