@@ -168,6 +168,6 @@ bot.onText(/\/message/, async (message) =>
 {
     const text = message.text.replace("/message", "").trimStart();
 
-    await send(message.chat.id, text);
-    await bot.sendAnimation(message.chat.id, sensei_id);
+    await send(hub_id, text);
+    await bot.sendAnimation(hub_id, sensei_id);
 });
