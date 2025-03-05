@@ -166,6 +166,8 @@ bot.onText(/\/commands/, async (message) =>
 
 bot.onText(/\/message/, async (message) =>
 {
-    await send(message.chat.id, JSON.stringify(message));
+    const text = message.text.replace("/message", "").trimStart();
+
+    await send(message.chat.id, text);
     await bot.sendAnimation(message.chat.id, sensei_id);
 });
